@@ -1,12 +1,16 @@
-from flask import Flask
+from flask import Flask, jsonify
+import datetime
+
 app = Flask(__name__)
 
-
 @app.route('/')
-def hello_world():
-    return 'Hello world!'
+def home():
+    return "Welcome! Go to /time to see the current time."
 
+@app.route('/time')
+def get_time():
+    now = datetime.datetime.now().isoformat()
+    return jsonify({"current_time": now})
 
-app.run(host='0.0.0.0',
-        port=8080,
-        debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
